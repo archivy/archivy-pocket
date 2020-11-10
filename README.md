@@ -2,6 +2,9 @@ archivy_pocket is an official Extension for [Archivy](https://github.com/archivy
 
 It allows users to sync their pocket bookmarks to the knowledge base.
 
+![demo](https://github.com/archivy/archivy_pocket/blob/master/demo.gif)
+
+
 ## Install
 
 You need to have `archivy` already installed.
@@ -23,4 +26,6 @@ Run `archivy pocket complete` to finish up the auth process.
 
 
 Now that you're set up, all you need to do to is run `archivy pocket sync` to fetch your latest bookmarks.
+
+You can also use the plugin through the web interface at `/plugins`.
 
