@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import click
-from archivy.extensions import get_db
+from archivy.helpers import get_db
 from archivy import app
 from tinydb import Query, operations
 from datetime import datetime
@@ -113,7 +113,7 @@ def sync():
                         desc=desc,
                         url=pocket_bookmark["resolved_url"],
                         date=datetime.now(),
-                        type="pocket_bookmarks",
+                        type="pocket_bookmark",
                         path="pocket")
                     bookmark.process_bookmark_url()
                     click.echo(f"Saving {bookmark.title}...")

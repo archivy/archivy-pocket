@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='archivy_pocket',
-    version='0.1.3',
+    version='0.1.5',
     author="Uzay-G",
     author_email="halcyon@disroot.org",
     description=(
