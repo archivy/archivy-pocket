@@ -1,13 +1,13 @@
-archivy_pocket is an official Extension for [Archivy](https://github.com/archivy/archivy).
+`archivy-pocket` allows users to sync their pocket bookmarks to their [Archivy](https://github.com/archivy/archivy) knowledge base.
 
-It allows users to sync their pocket bookmarks to the knowledge base.
+It is an official extension developed by [archivy](https://github.com/archivy/)
 
 ![demo](https://github.com/archivy/archivy_pocket/blob/master/demo.gif)
-
 
 ## Install
 
 You need to have `archivy` already installed.
+
 Run `pip install archivy_pocket`.
 
 ## Usage
