@@ -23,7 +23,7 @@ setup(
         "License :: OSI Approved :: MIT License"
     ],
     packages=find_packages(),
-    install_requires=install_requires
+    install_requires=install_requires,
     entry_points='''
         [archivy.plugins]
         pocket=archivy_pocket:pocket
