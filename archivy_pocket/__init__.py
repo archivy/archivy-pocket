@@ -7,7 +7,6 @@ from datetime import datetime
 from archivy.data import get_items, create_dir
 from archivy.models import DataObj
 import requests
-import webbrowser
 
 
 @click.group()
@@ -43,7 +42,7 @@ def auth(api_key):
         else:
             db.insert(new_data)
         click.echo(
-            f"Allow archivy_pocket to retrieve data to your pocket account."
+            f"Allow archivy_pocket to retrieve data to your pocket account "
             f"by visiting https://getpocket.com/auth/authorize?request_token={resp.json()['code']}"
             f"&redirect_uri=https://getpocket.com"
         )
