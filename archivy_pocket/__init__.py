@@ -76,7 +76,8 @@ def complete():
 
 
 @pocket.command()
-def sync():
+@click.option("--force", is_flag=True, help="Use this option if a previous sync did not terminate fully or you lost old bookmarks. This will reload all bookmarks from pocket and check if they are in your knowledge base. Otherwise, the plugin simply fetches the most recent ones, by checking to see which bookmark is the newest in your archivy.")
+def sync(force):
     with app.app_context():
         db = get_db()
 
@@ -92,11 +93,13 @@ def sync():
         # get date of latest call to pocket api
         since = datetime(1970, 1, 1)
         create_dir("pocket")
+        already_saved = set()
         for post in get_items(path="pocket/", structured=False):
             date = datetime.strptime(post["date"].replace("-", "/"), "%x")
+            already_saved.add(post["url"])
             since = max(date, since)
 
-        if since != datetime(1970, 1, 1):
+        if since != datetime(1970, 1, 1) and not force:
             since = datetime.timestamp(since)
             pocket_data["since"] = since
         bookmarks = requests.post(
@@ -109,17 +112,18 @@ def sync():
             click.echo("No new bookmarks.")
         else:
             for pocket_bookmark in bookmarks["list"].values():
-                if int(pocket_bookmark["status"]) != 2:
+                url = pocket_bookmark.get("resolved_url", pocket_bookmark["given_url"])
+                if int(pocket_bookmark["status"]) != 2 and url not in already_saved:
                     bookmark = DataObj(
-                        url=pocket_bookmark["resolved_url"],
+                        url=url,
                         date=datetime.now(),
                         type="pocket_bookmark",
                         path="pocket",
                     )
-                    bookmark.process_bookmark_url()
-                    click.echo(f"Saving {bookmark.title}...")
                     try:
+                        bookmark.process_bookmark_url()
+                        click.echo(f"Saving {bookmark.title}...")
                         bookmark.insert()
                     except:
-                        click.echo(f"Could not save {bookmark.title} - website may already be down.")
+                        click.echo(f"Could not save {bookmark.url} - website may already be down.")
             click.echo("Done!")
