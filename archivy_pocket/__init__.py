@@ -76,7 +76,11 @@ def complete():
 
 
 @pocket.command()
-@click.option("--force", is_flag=True, help="Use this option if a previous sync did not terminate fully or you lost old bookmarks. This will reload all bookmarks from pocket and check if they are in your knowledge base. Otherwise, the plugin simply fetches the most recent ones, by checking to see which bookmark is the newest in your archivy.")
+@click.option(
+    "--force",
+    is_flag=True,
+    help="Use this option if a previous sync did not terminate fully or you lost old bookmarks. This will reload all bookmarks from pocket and check if they are in your knowledge base. Otherwise, the plugin simply fetches the most recent ones, by checking to see which bookmark is the newest in your archivy.",
+)
 def sync(force):
     with app.app_context():
         db = get_db()
@@ -125,5 +129,7 @@ def sync(force):
                         click.echo(f"Saving {bookmark.title}...")
                         bookmark.insert()
                     except:
-                        click.echo(f"Could not save {bookmark.url} - website may already be down.")
+                        click.echo(
+                            f"Could not save {bookmark.url} - website may already be down."
+                        )
             click.echo("Done!")
