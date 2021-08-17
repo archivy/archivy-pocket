@@ -10,7 +10,7 @@ with open("requirements.txt", encoding="utf-8") as f:
 
 setup(
     name="archivy_pocket",
-    version="0.1.8",
+    version="0.1.9",
     author="Uzay-G",
     author_email="halcyon@disroot.org",
     description=("Archivy extension to sync content to your pocket account."),

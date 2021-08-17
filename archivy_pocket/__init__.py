@@ -96,8 +96,8 @@ def sync():
             date = datetime.strptime(post["date"].replace("-", "/"), "%x")
             since = max(date, since)
 
-        since = datetime.timestamp(since)
-        if since:
+        if since != datetime(1970, 1, 1):
+            since = datetime.timestamp(since)
             pocket_data["since"] = since
         bookmarks = requests.post(
             "https://getpocket.com/v3/get", json=pocket_data
@@ -118,5 +118,8 @@ def sync():
                     )
                     bookmark.process_bookmark_url()
                     click.echo(f"Saving {bookmark.title}...")
-                    bookmark.insert()
+                    try:
+                        bookmark.insert()
+                    except:
+                        click.echo(f"Could not save {bookmark.title} - website may already be down.")
             click.echo("Done!")
